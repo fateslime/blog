@@ -1,0 +1,21 @@
+html, body{
+    margin:0,
+    height:100%;
+}
+
+body {
+    padding : 20px;
+    background:url("/static/main/img/backgroud.png") fixed;
+    background-repeat:repeat;
+}
+
+ul#menu{
+    margin-bottom: 30px;
+    text-align: right;
+
+}
+ul#menu li{
+    display: inline-block;
+
+
+}
