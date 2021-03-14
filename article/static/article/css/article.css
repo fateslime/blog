@@ -5,3 +5,16 @@
     border: thin solid gray;
     border-radius: 10px;
 }
+
+.commentDiv{
+    margin-top: 1em;
+}
+
+.comment{
+    font-size: 0.8em;
+}
+
+.commentTime{
+    font-size: 0.6em;
+    color: #777777
+}
