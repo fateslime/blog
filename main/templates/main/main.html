@@ -1,17 +1,8 @@
-<!doctype html>
-{% load static %}
-<html>
-    <head>
-        <link rel="stylesheet" href="{% static 'main/css/main.css'%}">
-        <title>Fateslime</title>
-    </head>
-    <body>
-        <h2>Django 說--Hellow world</h2>
-    {%include 'main/menu.html'%}
+{%extends 'main/base.html'%}
+{%block heading%}首頁{%endblock%}
+{%block content%}
 
     <p>{{like}}</p>
-        這是一個什麼都沒有的網站
-        
-    </body>
+    這是一個什麼都沒有的網站
+{%endblock%}
 
-</html>

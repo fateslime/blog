@@ -1,16 +1,19 @@
-<!doctype html>
-{% load static %}
-<html>
-<head>
-    <link rel="stylesheet" href="{% static 'main/css/main.css'%}">
-    <title>部落格</title>
-    <meta charset="utf-8">
-</head>
-<body>
+{%extends 'main/base.html'%}
+{%load static %}
 
-{%include 'main/menu.html'%}
+{%block css %}
+<link rel="stylesheet" href="{% static 'article/css/article.css' %}">
+{%endblock%}
 
-<h2>部落格說</h2>
-<p>歡迎來到我的部落格，您可盡情瀏覽並留言</p>
-</body>
-</html>
+
+{%block heading%}歡迎{%endblock%}
+
+{% block content%}
+<br>
+{%for article in articles%}
+    <h3>{{article.title}}<h3>
+    <p>發表時間:{{article.pubDateTime|date:'Y-m-d H:i'}}</p>
+    <div class="articleContent">{{article.content|linebreaks|truncatechars_html:30}}</div>
+    <hr>
+{% endfor %}
+{% endblock %}
