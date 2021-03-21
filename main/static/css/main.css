@@ -12,10 +12,12 @@ body {
 ul#menu{
     margin-bottom: 30px;
     text-align: right;
-
 }
 ul#menu li{
     display: inline-block;
-
-
 }
+
+ul#menu li{
+    display:inline-block;
+}
+
