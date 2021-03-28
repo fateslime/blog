@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from article.models import Article,Comment
 from article.forms import ArticleForm
 from django.contrib import messages
@@ -9,7 +9,7 @@ def article(request):
 
     return render(request, 'article/article.html',context)
 def articleCreate(request):
-    template ='article/articleCreate.html'
+    template = 'article/articleCreateUpdate.html'
     if request.method =='GET':  
         return render(request,template,{'articleForm':ArticleForm()})
 
@@ -21,5 +21,42 @@ def articleCreate(request):
     messages.success(request,'文章已新增')
     return redirect('article:article')
 
+def articleRead(request, articleId):
+	article = get_object_or_404(Article, id=articleId)
+	context = {
+		'article': article,
+		'comments': Comment.objects.filter(article=article)
+	}
+	return render(request, 'article/articleRead.html', context)
+
+def articleUpdate(request, articleId):
+    article = get_object_or_404(Article, id=articleId)
+    template = 'article/articleCreateUpdate.html'
+    if request.method == 'GET':
+        articleForm = ArticleForm(instance=article)
+        return render(request, template, {'articleForm':articleForm})
+
+    articleForm = ArticleForm(request.POST, instance=article)
+    if not articleForm.is_valid():
+        return render(request, template, {'articleForm':articleForm})
+
+    articleForm.save()
+    messages.success(request, '文章已修改') 
+    return redirect('article:articleRead', articleId=articleId)
+	
+def articleDelete(request, articleId):
+    '''
+    Delete the article instance:
+        1. Render the article page if the method is GET
+        2. Get the article to delete; redirect to 404 if not found
+    '''
+    if request.method == 'GET':
+        return redirect('article:article')
+
+    # POST
+    article = get_object_or_404(Article, id=articleId)
+    article.delete()
+    messages.success(request, '文章已刪除')  
+    return redirect('article:article')
 
     

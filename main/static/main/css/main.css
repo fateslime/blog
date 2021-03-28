@@ -38,3 +38,7 @@ ul#menu li{
     background-color: #fbd9d8;
     border: thin solid red;
 }
+
+.inlineBlock {
+        display: inline-block;
+}
