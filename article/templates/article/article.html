@@ -9,13 +9,23 @@
 {%block heading%}歡迎{%endblock%}
 
 {% block content%}
-<p><a class="btn" href="{% url 'article:articleCreate' %}">新增文章</a></p>
+
+    {% if user.is_authenticated %}
+        <p><a class="btn" href="{% url 'article:articleCreate' %}">新增文章</a></p>
+    {% endif %}
 {%for article,comments in articles.items%}
     <h3 class=inlineBlock><a href="{% url 'article:articleRead' article.id %}">{{article.title}}</a></h3>
-    <form class="inlineBlock" method="post" action="{% url 'article:articleDelete' article.id %}">
-    {% csrf_token %}
-    <input class="btn deleteConfirm" type="submit" value="刪除">
-    </form>
+    
+
+    {% if  user.is_authenticated %}
+        <form class="inlineBlock" method="post" action="{% url 'article:articleDelete' article.id %}">
+        {% csrf_token %}
+        <input class="btn deleteConfirm" type="submit" value="刪除">
+        </form>
+    {% endif %}
+
+
+
     <p>發表時間:{{article.pubDateTime|date:'Y-m-d H:i'}}</p>
     <div class="articleContent">{{article.content|linebreaks|truncatechars_html:30}}</div>
 
